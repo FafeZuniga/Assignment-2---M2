@@ -8,9 +8,9 @@ public class StageA {
     static Scanner sc;
     int numAct;
     boolean menuReturn = true;
-    int numOfActivities[] = new int[numAct];
+    Activity[] Activities = new Activity[numAct];
     String activityTitle;
-    String activityDescription;
+    static String activityDescription;
     int activityTicketsSold;
 
     //constructor
@@ -25,9 +25,9 @@ public class StageA {
         while(app.menuReturn = true) {
             app.printMenu();
             switch (app.returnChoice()) {
-                case 1 ://activity.enterDetailsForNewActivities();
+                case 1 :app.enterDetailsForNewActivities();
                     break;
-                case 2 : //activity.displayDetails();
+                case 2 : activity.displayDetails();
                     break;
                 // Option 3 displays all stock in a neat table
                 case 3 :
@@ -77,17 +77,24 @@ public class StageA {
     public void asksForNameOfActivity(){
         System.out.println("Please enter the name of the activity");
         activityTitle = sc.next();
+        Activity.title = activityTitle;
     }
 
     public void asksForTicketsSold(){
         System.out.println("How many tickets have been sold?");
         activityTicketsSold = sc.nextInt();
+        Activity.ticketsSold = activityTicketsSold;
     }
 
-    public void asksForDescriptionOfActivity(){
+    static public void asksForDescriptionOfActivity(){
         System.out.println("Please enter description of activity");
-        activityDescription = sc.next();
+        activityDescription = sc.nextLine();
+        Activity.description = activityDescription;
     }
-
-
+    public void enterDetailsForNewActivities() {
+        asksForNameOfActivity();
+        asksForDescriptionOfActivity();
+        sc.nextLine();
+        asksForTicketsSold();
+    }
 }
