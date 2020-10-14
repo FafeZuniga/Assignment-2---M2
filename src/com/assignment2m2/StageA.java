@@ -27,10 +27,10 @@ public class StageA {
             switch (app.returnChoice()) {
                 case 1 :app.enterDetailsForNewActivities();
                     break;
-                case 2 : activity.displayDetails();
+                case 2 :
                     break;
                 // Option 3 displays all stock in a neat table
-                case 3 :
+                case 3 : activity.displayDetails();
                     break;
                 case 4 :
                     break;
@@ -78,6 +78,7 @@ public class StageA {
         System.out.println("Please enter the name of the activity");
         activityTitle = sc.next();
         Activity.title = activityTitle;
+
     }
 
     public void asksForTicketsSold(){
@@ -87,14 +88,16 @@ public class StageA {
     }
 
     static public void asksForDescriptionOfActivity(){
+        sc.nextLine();
         System.out.println("Please enter description of activity");
         activityDescription = sc.nextLine();
         Activity.description = activityDescription;
+
     }
     public void enterDetailsForNewActivities() {
         asksForNameOfActivity();
         asksForDescriptionOfActivity();
-        sc.nextLine();
         asksForTicketsSold();
+
     }
 }
