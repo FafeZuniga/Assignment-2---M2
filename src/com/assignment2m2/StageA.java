@@ -6,12 +6,9 @@ public class StageA {
 
     //instance variables
     static Scanner sc;
-    int numAct;
     boolean menuReturn = true;
-    Activity[] Activities = new Activity[numAct];
-    String activityTitle;
-    static String activityDescription;
-    int activityTicketsSold;
+    int numAct = 0;
+    Activity[] activities;
 
     //constructor
     public StageA() {
@@ -21,47 +18,76 @@ public class StageA {
     public static void main(String[] args) {
         StageA app = new StageA();
         app.asksForNumberOfActivities();
-        Activity activity = new Activity(app.activityTitle, app.activityDescription, app.activityTicketsSold);
-        while(app.menuReturn = true) {
+        app.activities = new Activity[app.numAct];
+        while (true) {
+            int currentAct = 0;
+//            if(currentAct >= app.numAct){
+//                System.out.println("You have entered " + currentAct + " Activities");
+//                break;
+//            }
             app.printMenu();
             switch (app.returnChoice()) {
-                case 1 :app.enterDetailsForNewActivities();
+                case 1:
+                    for (int i = 0; i < app.activities.length; i++) {
+
+                        String title = app.asksForNameOfActivity();
+                        String description = app.asksForDescriptionOfActivity();
+                        int ticketsSold = app.asksForTicketsSold();
+                        int ticketType = app.asksForTicketType();
+                        app.activities[i] = new Activity(title, description, ticketsSold, ticketType);
+
+                        for (int j = 0; j < ticketType; j++) {
+                            String ticketName = app.asksForTicketName();
+                            double price = app.asksForPrice();
+                            app.activities[i].setTicket(j, ticketName, price);
+                        }
+                    }
                     break;
-                case 2 :
+                case 2:
                     break;
                 // Option 3 displays all stock in a neat table
-                case 3 : activity.displayDetails();
+                case 3:
+                    //  int i = 0;
+                    for (int i = 0; i < app.activities.length; i++) {
+                        System.out.println("================Activities================");
+                        app.activities[i].displayDetails();
+                    }
                     break;
-                case 4 :
+                case 4:
                     break;
                 //exits the program
-                case 5 :System.out.println("You have quit the program\r\n");
+                case 5:
+                    System.out.println("You have quit the program\r\n");
                     System.exit(0);
                     break;
                 //Error Message/menu validation
-                default:System.out.println("\nYou have entered an invalid selection, please try again \n");
+                default:
+                    System.out.println("\nYou have entered an invalid selection, please try again \n");
             }
+            currentAct += 1;
         }
     }
+
     //prints the menu
     public void printMenu() {
         //Welcomes the user to the application and display menu
         String mainMenu = ("MENU: \n" +
-                "----------------------------------------\n"+
-                "[1] Enter details of new activity\n"+
+                "----------------------------------------\n" +
+                "[1] Enter details of new activity\n" +
                 "[2] Display specific activity\n" +
                 "[3] Display all activities\n" +
                 "[4] Process booking of new activity\n" +
-                "[5] Exit program\n" + 						" \n"+
+                "[5] Exit program\n" + " \n" +
                 "Please make your selection now (1-5) ");
         System.out.println(mainMenu);
     }
-   public void asksForNumberOfActivities(){
+
+    public void asksForNumberOfActivities() {
         boolean isNumber;
         while (isNumber = true) {
             System.out.println("Please enter the maximum number of activities");
             if (sc.hasNextInt()) {
-                numAct = sc.nextInt();
+                numAct = returnChoice();
                 break;
             } else {
                 System.out.println("Your input is invalid");
@@ -71,33 +97,50 @@ public class StageA {
         }
     }
 
+    public int returnChoice() {
+        return sc.nextInt();
+    }
 
-    public int returnChoice() {return sc.nextInt();}
-
-    public void asksForNameOfActivity(){
+    public String asksForNameOfActivity() {
         System.out.println("Please enter the name of the activity");
-        activityTitle = sc.next();
-        Activity.title = activityTitle;
+        String title = sc.next();
+        return title;
 
     }
 
-    public void asksForTicketsSold(){
+    public int asksForTicketsSold() {
         System.out.println("How many tickets have been sold?");
-        activityTicketsSold = sc.nextInt();
-        Activity.ticketsSold = activityTicketsSold;
+        int ticketsSold = sc.nextInt();
+        return ticketsSold;
     }
 
-    static public void asksForDescriptionOfActivity(){
+    public String asksForDescriptionOfActivity() {
         sc.nextLine();
         System.out.println("Please enter description of activity");
-        activityDescription = sc.nextLine();
-        Activity.description = activityDescription;
-
+        String description = sc.nextLine();
+        return description;
     }
-    public void enterDetailsForNewActivities() {
-        asksForNameOfActivity();
-        asksForDescriptionOfActivity();
-        asksForTicketsSold();
 
+    public int asksForTicketType() {
+        sc.nextLine();
+        int ticketType;
+        System.out.println("Please enter the number of Ticket Types");
+        ticketType = sc.nextInt();
+        return ticketType;
+    }
+
+    public double asksForPrice() {
+        sc.nextLine();
+        double price;
+        System.out.println("Please enter the price of the ticket");
+        price = sc.nextDouble();
+        return price;
+    }
+
+    public String asksForTicketName() {
+        String ticketName;
+        System.out.println("Please enter the name of Ticket");
+        ticketName = sc.nextLine();
+        return ticketName;
     }
 }
