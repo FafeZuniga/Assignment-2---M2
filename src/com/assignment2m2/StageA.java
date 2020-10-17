@@ -6,9 +6,10 @@ public class StageA {
 
     //instance variables
     static Scanner sc;
-    boolean menuReturn = true;
+   // boolean menuReturn = true;
     int numAct = 0;
     Activity[] activities;
+    int currentAct = 0;
 
     //constructor
     public StageA() {
@@ -19,24 +20,27 @@ public class StageA {
         StageA app = new StageA();
         app.asksForNumberOfActivities();
         app.activities = new Activity[app.numAct];
-
         while (true) {
-            int currentAct = 0;
             app.printMenu();
             switch (app.returnChoice()) {
                 case 1:
+                    if(app.currentAct == app.activities.length)
+                    {
+                        System.out.println("Error - You cannot add any more activities.");
+                    }else{
                         for (int i = 0; i < app.activities.length; i++) {
-                            String title = app.asksForNameOfActivity();
-                            String description = app.asksForDescriptionOfActivity();
-                            int ticketsSold = app.asksForTicketsSold();
-                            int ticketType = app.asksForTicketType();
-                            app.activities[i] = new Activity(title, description, ticketsSold, ticketType);
-
-                            for (int j = 0; j < ticketType; j++) {
-                                String ticketName = app.asksForTicketName();
-                                double price = app.asksForPrice();
-                                app.activities[i].setTicket(j, ticketName, price);
-                            }
+                        String title = app.asksForNameOfActivity();
+                        String description = app.asksForDescriptionOfActivity();
+                        int ticketsSold = app.asksForTicketsSold();
+                        int ticketType = app.asksForTicketType();
+                        app.activities[i] = new Activity(title, description, ticketsSold, ticketType);
+                            app.currentAct++;
+                        for (int j = 0; j < ticketType; j++) {
+                            String ticketName = app.asksForTicketName();
+                            double price = app.asksForPrice();
+                            app.activities[i].setTicket(j, ticketName, price);
+                        }
+                        }
                         }
                     break;
                 case 2:
@@ -47,11 +51,9 @@ public class StageA {
                     System.out.println("Enter name of Activity: ");
                     sc.nextLine();
                     target = sc.nextLine();
-                    for(int i=0; i < app.activities.length && a == null; i++)
-                    {
+                    for(int i=0; i < app.activities.length && a == null; i++) {
                       name = app.activities[i].getActivityTitle();
-                      if (name.equals(target))
-                      {
+                      if (name.equals(target)) {
                        a = app.activities[i];
                        a.displayDetails();
                       }
@@ -78,7 +80,7 @@ public class StageA {
                 default:
                     System.out.println("\nYou have entered an invalid selection, please try again \n");
             }
-            currentAct += 1;
+
         }
     }
     //prints the menu
@@ -118,7 +120,6 @@ public class StageA {
         System.out.println("Please enter the name of the activity");
         String title = sc.next();
         return title;
-
     }
 
     public int asksForTicketsSold() {
