@@ -33,15 +33,15 @@ public class Activity {
         }
     }
 
-    private int getActivityTicketsSold() {
+    public int getActivityTicketsSold() {
         return ticketsSold;
     }
 
-    private String getActivityDescription() {
+    public String getActivityDescription() {
         return description;
     }
 
-    private String getActivityTitle() {
+    public String getActivityTitle() {
         return title;
     }
 }

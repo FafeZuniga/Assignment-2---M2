@@ -19,31 +19,45 @@ public class StageA {
         StageA app = new StageA();
         app.asksForNumberOfActivities();
         app.activities = new Activity[app.numAct];
+
         while (true) {
             int currentAct = 0;
-//            if(currentAct >= app.numAct){
-//                System.out.println("You have entered " + currentAct + " Activities");
-//                break;
-//            }
             app.printMenu();
             switch (app.returnChoice()) {
                 case 1:
-                    for (int i = 0; i < app.activities.length; i++) {
+                        for (int i = 0; i < app.activities.length; i++) {
+                            String title = app.asksForNameOfActivity();
+                            String description = app.asksForDescriptionOfActivity();
+                            int ticketsSold = app.asksForTicketsSold();
+                            int ticketType = app.asksForTicketType();
+                            app.activities[i] = new Activity(title, description, ticketsSold, ticketType);
 
-                        String title = app.asksForNameOfActivity();
-                        String description = app.asksForDescriptionOfActivity();
-                        int ticketsSold = app.asksForTicketsSold();
-                        int ticketType = app.asksForTicketType();
-                        app.activities[i] = new Activity(title, description, ticketsSold, ticketType);
-
-                        for (int j = 0; j < ticketType; j++) {
-                            String ticketName = app.asksForTicketName();
-                            double price = app.asksForPrice();
-                            app.activities[i].setTicket(j, ticketName, price);
+                            for (int j = 0; j < ticketType; j++) {
+                                String ticketName = app.asksForTicketName();
+                                double price = app.asksForPrice();
+                                app.activities[i].setTicket(j, ticketName, price);
+                            }
                         }
-                    }
                     break;
                 case 2:
+                    String target;
+                    Activity a;
+                    a = null;
+                    String name;
+                    System.out.println("Enter name of Activity: ");
+                    sc.nextLine();
+                    target = sc.nextLine();
+                    for(int i=0; i < app.activities.length && a == null; i++)
+                    {
+                      name = app.activities[i].getActivityTitle();
+                      if (name.equals(target))
+                      {
+                       a = app.activities[i];
+                       a.displayDetails();
+                      }
+                    }
+                    if (a == null)
+                    {System.out.println("Error - " + target + " not found!" );}
                     break;
                 // Option 3 displays all stock in a neat table
                 case 3:
@@ -67,7 +81,6 @@ public class StageA {
             currentAct += 1;
         }
     }
-
     //prints the menu
     public void printMenu() {
         //Welcomes the user to the application and display menu
