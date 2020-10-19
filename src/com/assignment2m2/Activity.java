@@ -7,12 +7,13 @@ public class Activity {
     private String ticketType[];
     private int ticketsSold;
     private double prices[];
+    private String name;
 
 
-    public Activity(String title, String description, int ticketsSold, int ticketType) {
+    public Activity(String title, String description, int ticketType) {
         this.title = title;
         this.description = description;
-        this.ticketsSold = ticketsSold;
+        this.ticketsSold = 0;
         this.ticketType = new String[ticketType];
         this.prices = new double[ticketType];
 
@@ -43,5 +44,23 @@ public class Activity {
 
     public String getActivityTitle() {
         return title;
+    }
+
+     boolean bookActivity(int ticketIndex, String name) {
+         ticketsSold++;
+         System.out.println("========Ticket Purchase========");
+         System.out.println(name + " has bought a ticket for: "+ title +" / "+ ticketType[ticketIndex] +" for $"+ prices[ticketIndex]);
+         System.out.println("Have a nice day!");
+         System.out.println("");
+        return true;
+
+     }
+    public int getTicketIndex(String ticketName){
+        for(int i=0; i < ticketType.length; i++){
+            if(ticketType[i].equalsIgnoreCase(ticketName)){
+                return i;
+            }
+        }
+        return -1;
     }
 }
