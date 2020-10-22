@@ -8,7 +8,7 @@ public class StageA {
     static Scanner sc;
     int numAct = 0;
     Activity[] activities;
-    int currentAct = 0;
+    //
 
     //constructor
     public StageA() {
@@ -17,29 +17,36 @@ public class StageA {
 
     public static void main(String[] args) {
         StageA app = new StageA();
+        int currentAct = 0;
         app.asksForNumberOfActivities();
         app.activities = new Activity[app.numAct];
         while (true) {
             app.printMenu();
             switch (app.returnChoice()) {
                 case 1:
-                        if (app.currentAct == app.activities.length) {
+                    String answero = "";
+                    do {
+                        if (currentAct == app.activities.length) {
                             System.out.println("Error - You cannot add any more activities.\n");
+                            break;
                         } else {
-                            for (int i = 0; i < app.activities.length; i++) {
+                          //  for (int i = 0; i < app.activities.length; i++) {
                                 String title = app.asksForNameOfActivity();
                                 String description = app.asksForDescriptionOfActivity();
                                 int ticketType = app.asksForTicketType();
-                                app.activities[i] = new Activity(title, description, ticketType);
-                                app.currentAct++;
+                                app.activities[currentAct] = new Activity(title, description, ticketType);
+
                                 for (int j = 0; j < ticketType; j++) {
                                     String ticketName = app.asksForTicketName();
                                     double price = app.asksForPrice();
-                                    app.activities[i].setTicket(j, ticketName, price);
+                                    app.activities[currentAct].setTicket(j, ticketName, price);
+                                    System.out.println("Continue? Y/N");
+                                    answero = sc.nextLine();
                                 }
                             }
-
-                        }
+                        currentAct++;
+                        //}
+                        }while(answero.equalsIgnoreCase("Y"));
                     break;
                 // Option 2 searches for a specific activitiy
                 case 2:
