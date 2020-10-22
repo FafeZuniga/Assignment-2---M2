@@ -23,8 +23,6 @@ public class StageA {
             app.printMenu();
             switch (app.returnChoice()) {
                 case 1:
-                    String answero = "";
-                    do{
                         if (app.currentAct == app.activities.length) {
                             System.out.println("Error - You cannot add any more activities.\n");
                         } else {
@@ -38,12 +36,10 @@ public class StageA {
                                     String ticketName = app.asksForTicketName();
                                     double price = app.asksForPrice();
                                     app.activities[i].setTicket(j, ticketName, price);
-                                    System.out.println("Would you like to continue? Y/N");
-                                    answero = sc.next();
                                 }
                             }
+
                         }
-                    }while (answero.equalsIgnoreCase("y"));
                     break;
                 // Option 2 searches for a specific activitiy
                 case 2:

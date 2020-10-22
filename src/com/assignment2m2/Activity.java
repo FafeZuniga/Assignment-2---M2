@@ -8,6 +8,8 @@ public class Activity {
     private int ticketsSold;
     private double prices[];
     private String name;
+    private String sessionNames[];
+    private String numSold[];
 
 
     public Activity(String title, String description, int ticketType) {
@@ -16,7 +18,6 @@ public class Activity {
         this.ticketsSold = 0;
         this.ticketType = new String[ticketType];
         this.prices = new double[ticketType];
-
     }
 
     public void setTicket(int position, String ticketType, double prices) {
@@ -53,8 +54,8 @@ public class Activity {
          System.out.println("Have a nice day!");
          System.out.println("");
         return true;
-
      }
+
     public int getTicketIndex(String ticketName){
         for(int i=0; i < ticketType.length; i++){
             if(ticketType[i].equalsIgnoreCase(ticketName)){
